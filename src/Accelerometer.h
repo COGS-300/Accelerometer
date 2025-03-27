@@ -15,14 +15,19 @@
  */
 class Accelerometer
 {
-public:
-    MPU6050 mpu; // MPU6050 sensor object
 
+private:
     int16_t ax, ay, az; ///< Raw accelerometer data (X, Y, Z)
     int16_t gx, gy, gz; ///< Raw gyroscope data (X, Y, Z)
 
     int16_t ax_offset, ay_offset, az_offset; ///< Accelerometer calibration offsets
     int16_t gx_offset, gy_offset, gz_offset; ///< Gyroscope calibration offsets
+
+public:
+    float acc_x, acc_y, acc_z;
+    float gyro_x, gyro_y, gyro_z;
+
+    MPU6050 mpu; // MPU6050 sensor object
 
     float roll, pitch; ///< Computed roll and pitch angles
 

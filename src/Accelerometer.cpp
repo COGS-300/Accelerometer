@@ -36,9 +36,17 @@ void Accelerometer::read()
     mpu.getAcceleration(&ax, &ay, &az);
     mpu.getRotation(&gx, &gy, &gz);
 
+    acc_x = float(ax);
+    acc_y = float(ay);
+    acc_z = float(az);
+
+    gyro_x = float(gx);
+    gyro_y = float(gy);
+    gyro_z = float(gz);
+
     // Compute roll and pitch angles in degrees
-    roll = atan2(ay, az) * 180.0 / PI;
-    pitch = atan2((-ax), sqrt(az * az + az * az)) * 180.0 / PI;
+    roll = atan2(acc_y, acc_z) * 180.0 / PI;
+    pitch = atan2((-acc_x), sqrt(acc_y * acc_y + acc_z * acc_z)) * 180.0 / PI;
 }
 
 /**
@@ -47,9 +55,9 @@ void Accelerometer::read()
 void Accelerometer::print()
 {
     char buffer[50];
-    sprintf(buffer, "Accl (x, y, z): %7d %7d %7d", ax, ay, az);
+    sprintf(buffer, "Accl (x, y, z): %7lf %7lf %7lf", acc_x, acc_y, acc_z);
     Serial.println(buffer);
-    sprintf(buffer, "Gyro (x, y, z): %7d %7d %7d", gx, gy, gz);
+    sprintf(buffer, "Gyro (x, y, z): %7lf %7lf %7lf", gyro_x, gyro_y, gyro_z);
     Serial.println(buffer);
 }
 
